@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matador de monstro</title>
+    <link rel="stylesheet" href="style.css">
+    
+    
+</head>
+<body>
+    <div id="app">
+        <h1 class="title">Matador de monstro</h1>
+        <div class="panel scores">
+            <div class="score">
+                <img src="imgs/heroi3.png" class="img-hero">
+                <h1>Jogador</h1>
+                <div class="life-bar">
+                    <div class="life" 
+                    :class="{danger: playerLife < 20}" :style="{width: playerLife + '%'}"></div>
+                </div>
+                <div> {{playerLife}}%</div>
+            </div>
+            <div class="score">
+                <img src="imgs/monstro.png" class="img-monster">
+                <h1>Monstro</h1>
+                <div class="life-bar">
+                    <div class="life"
+                    :class="{danger: monsterLife < 20}" :style="{width: monsterLife + '%'}"></div>
+                </div>
+                <div> {{monsterLife}}%</div>
+            </div>
+            
+        </div>
+        <div v-if="hasResult" class="panel result">
+            <div v-if="monsterLife == 0" class="win">Você ganhou!</div>
+            <div v-else class="lose">Você perdeu!</div>
+        </div>
+        <div class="panel buttons">
+            <template v-if="running" >
+                <button class="btn attack" @click="attack(false)">Ataque</button>
+                <button class="btn especial-attack" @click="attack(true)">Ataque especial</button>
+                <button class="btn heal" @click="healAndHurt">Curar</button>
+                <button class="btn give-up" @click="running = false">Desistir</button>
+            </template>
+            
+            <button v-else class="btn new-game" @click="startGame">Iniciar jogo</button>
+        </div>
+        <div v-if="logs.length" class="panel logs">
+            <ul>
+                <li v-for="log in logs" class="log" :class="log.classe">
+                    {{log.text}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="footer">
+        <p class="credits">Créditos</p>
+        <a href="https://br.freepik.com/vetores/fundo">Fundo vetor criado por macrovector - br.freepik.com</a>
+        <a href="https://br.freepik.com/vetores/alimento">Alimento vetor criado por pch.vector - br.freepik.com</a>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="app.js"></script>
+    <!--
+        https://br.freepik.com/vetores-gratis/monstros-bobos-dos-desenhos-animados-com-ilustracao-de-inscricoes-engracadas-monstros-rosnando-e-gritando-o-monstro-do-personagem-assustando_13031941.htm#page=1&query=monstros&position=19
+        https://br.freepik.com/vetores-gratis/varios-icones-lisos-de-frutas-de-super-herois_9652089.htm#query=super%20heroi%20cartoon&position=28
+    -->
+</body>
+</html>
